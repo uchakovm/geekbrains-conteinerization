@@ -1,0 +1,37 @@
+uchakov@terraform:~/geekbrains-conteinerization/practice/8.ci-cd$ kubectl get po -n gitlab
+NAME                                          READY   STATUS    RESTARTS   AGE
+release-name-gitlab-runner-56bfb46bc4-8j9b7   1/1     Running   0          62m
+
+uchakov@terraform:~/geekbrains-conteinerization/practice/8.ci-cd$ kubectl get po -n stage
+NAME                          READY   STATUS    RESTARTS   AGE
+database-0                    1/1     Running   0          9m32s
+geekbrains-55df48c88d-26lnh   1/1     Running   0          5m52s
+geekbrains-55df48c88d-pxnkd   1/1     Running   0          5m52s
+
+uchakov@terraform:~/geekbrains-conteinerization/practice/8.ci-cd$ kubectl get po -n prod
+NAME                          READY   STATUS    RESTARTS   AGE
+database-0                    1/1     Running   0          8m46s
+geekbrains-55df48c88d-g6ts7   1/1     Running   0          5m25s
+geekbrains-55df48c88d-mjpk2   1/1     Running   0          5m25s
+
+uchakov@terraform:~/geekbrains-conteinerization/practice/8.ci-cd$ kubectl get ingress -o wide -n stage
+NAME         CLASS    HOSTS   ADDRESS     PORTS   AGE
+geekbrains   <none>   stage   10.0.0.14   80      6m45s
+
+uchakov@terraform:~/geekbrains-conteinerization/practice/8.ci-cd$ kubectl get ingress -o wide -n prod
+NAME         CLASS    HOSTS   ADDRESS     PORTS   AGE
+geekbrains   <none>   prod    10.0.0.14   80      6m15s
+
+uchakov@terraform:~/geekbrains-conteinerization/practice/8.ci-cd$ kubectl get svc -n stage
+NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+database     ClusterIP   10.254.59.154    <none>        5432/TCP   11m
+geekbrains   ClusterIP   10.254.126.131   <none>        8000/TCP   8m15s
+
+uchakov@terraform:~/geekbrains-conteinerization/practice/8.ci-cd$ kubectl get svc -n prod
+NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+database     ClusterIP   10.254.107.89    <none>        5432/TCP   11m
+geekbrains   ClusterIP   10.254.180.242   <none>        8000/TCP   7m52s
+
+Я так и не смог задеплоить приложение, что-то с авторизацией
+
+ERROR: Job failed (system failure): prepare environment: setting up credentials: secrets is forbidden: User "system:serviceaccount:gitlab:release-name-gitlab-runner" cannot create resource "secrets" in API group "" in the namespace "default". Check https://docs.gitlab.com/runner/shells/index.html#shell-profile-loading for more information
