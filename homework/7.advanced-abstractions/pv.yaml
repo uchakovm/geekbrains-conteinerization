@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: prometheus-pv-nfs
+spec:
+  accessModes:
+    - ReadWriteMany
+  mountOptions:
+    - hard
+    - nfsvers=4.0
+    - timeo=60
+    - retrans=10
+  capacity:
+    storage: 10Gi
+  nfs:
+    server: 10.0.0.21
+    path: "/shares/share-4b524dac-3ffe-44cd-9143-bf51de8c2de2"
+  persistentVolumeReclaimPolicy: "Recycle"

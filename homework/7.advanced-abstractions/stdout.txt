@@ -1,0 +1,41 @@
+PS W:\solutions\geekbrains-conteinerization\homework\7.advanced-abstractions> kubectl.exe get pv
+NAME                CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                       STORAGECLASS   REASON   AGE
+prometheus-pv-nfs   10Gi       RWX            Recycle          Bound    default/prometheus-pv-nfs                           58m
+
+PS W:\solutions\geekbrains-conteinerization\homework\7.advanced-abstractions> kubectl.exe get pvc
+NAME                STATUS   VOLUME              CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+prometheus-pv-nfs   Bound    prometheus-pv-nfs   10Gi       RWX                           12m
+
+PS W:\solutions\geekbrains-conteinerization\homework\7.advanced-abstractions> kubectl.exe get configmap
+NAME               DATA   AGE
+kube-root-ca.crt   1      20d
+prometheus-cfg     1      54m
+
+PS W:\solutions\geekbrains-conteinerization\homework\7.advanced-abstractions> kubectl.exe get ds                   
+NAME            DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR            AGE
+node-exporter   3         3         3       3            3           kubernetes.io/os=linux   70m
+
+PS W:\solutions\geekbrains-conteinerization\homework\7.advanced-abstractions> kubectl.exe get StatefulSet 
+NAME                    READY   AGE
+prometheus-deployment   1/1     12m
+
+PS W:\solutions\geekbrains-conteinerization\homework\7.advanced-abstractions> kubectl.exe get po
+NAME                      READY   STATUS    RESTARTS   AGE
+node-exporter-kx658       1/1     Running   0          71m
+node-exporter-lkmrp       1/1     Running   0          71m
+node-exporter-xxs7c       1/1     Running   0          71m
+prometheus-deployment-0   1/1     Running   0          13m
+
+PS W:\solutions\geekbrains-conteinerization\homework\7.advanced-abstractions> kubectl.exe get svc   
+NAME                 TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+kubernetes           ClusterIP   10.254.0.1       <none>        443/TCP          20d
+prometheus-service   NodePort    10.254.219.236   <none>        8080:30000/TCP   9m39s
+
+PS W:\solutions\geekbrains-conteinerization\homework\7.advanced-abstractions> kubectl.exe get ingress -o wide
+NAME      CLASS    HOSTS   ADDRESS     PORTS   AGE
+ingress   <none>   *       10.0.0.14   80      6m11s
+
+PS W:\solutions\geekbrains-conteinerization\homework\7.advanced-abstractions> kubectl.exe get svc -A
+NAMESPACE        NAME                                 TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)                      AGE
+default          kubernetes                           ClusterIP      10.254.0.1       <none>           443/TCP                      20d
+default          prometheus-service                   NodePort       10.254.219.236   <none>           8080:30000/TCP               9m9s
